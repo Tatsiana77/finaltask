@@ -1,0 +1,6 @@
+
+
+<c:set var="abs">${pageContext.request.contextPath}</c:set>
+
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization/locale"/>ot>

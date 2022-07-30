@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="warn" monitorinterval="40000">
+<Configuration status="WARN" monitorinterval="40000">
+    <Properties>
+        <property name="LOG_FOLDER">log</property>
+        <property name="pattern_cmd">%d{HH:mm:ss} %-5level %logger{5} - %m%n</property>
+        <property name="pattern_file">%d{yyyy-MM-dd HH:mm:ss} [%t] [%M] [%L] %-5level %logger{5} - %m%n</property>
+    </Properties>
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
+        <Console name="STDOUT " target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{1} - %msg%n"/>
         </Console>
-        <RollingFile name="RollingFile" fileName="/finaltask/logs/log.txt" filePattern="logs/log-%d{MM-dd-yyyy}.txt.zip"
+        <RollingFile name="rollingFile" fileName="${LOG_FOLDER}/log.txt" filePattern="logs/log-%d{MM-dd-yyyy}.txt.zip"
                      bufferedIO="true">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{5}- %msg%n"/>
-            <TimeBasedTriggeringPolicy/>
+            <PatternLayout pattern="${pattern_file}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            <SizeBasedTriggeringPolicy size="100 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="Console"/>
-            <AppenderRef ref="RollingFile"/>
+        <Root level="TRACE">
+            <AppenderRef ref="STDOUT" level="debug"/>
+            <AppenderRef ref="TxtFile" level="debug"/>
         </Root>
     </Loggers>
 </Configuration>
