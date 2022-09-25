@@ -1,7 +1,6 @@
 package by.edu.sarnatskaya.pharmacy.model.dao.impl;
 
 
-import by.edu.sarnatskaya.pharmacy.model.entity.Preparation;
 import by.edu.sarnatskaya.pharmacy.model.entity.Prescription;
 import by.edu.sarnatskaya.pharmacy.exception.DaoException;
 import by.edu.sarnatskaya.pharmacy.model.connection.ConnectionPool;
@@ -15,9 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.*;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;

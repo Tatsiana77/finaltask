@@ -23,9 +23,18 @@ public class OrdersDaoImpl implements OrdersDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm:ss");
 
-    private static final String FIND_ORDERS_BY_USERS_ID = "SELECT orders.id, created, amount, dose, cost , orders.status_id, orders.users_id FROM orders JOIN users ON orders.id = users_id  JOIN purchases ON  orders_id = purchases.id JOIN orders_status ON orders.status_id= orders_status.id  WHERE  orders.users_id = ?";
+    private  static  final String FIND_ALL_ORDERS = "SELECT orders.id, created, amount, dose, cost , orders.status_id, orders.users_id " +
+            "FROM orders " +
+            "JOIN users ON orders.id = users_id  " +
+            "JOIN purchases ON  orders_id = purchases.id " +
+            "JOIN orders_status ON orders.status_id= orders_status.id  ";
 
-    private static final String FIND_ORDER_BY_STATUS = "SELECT orders.id, created, amount, dose, cost , orders.status_id, orders.users_id,  FROM orders JOIN orders_status ON orders.status_id= orders_status.id WHERE  orders_id =?";
+    private static final String FIND_ORDERS_BY_USERS_ID   = FIND_ALL_ORDERS + "WHERE  orders.users_id = ?";
+
+    private static final String FIND_ORDER_BY_STATUS = "SELECT orders.id, created, amount, dose, cost , orders.status_id, orders.users_id,  " +
+            "FROM orders " +
+            "JOIN orders_status ON orders.status_id= orders_status.id " +
+            "WHERE  orders_id =?";
 
     private static final String UPDATE_ORDERS_STATUS = "UPDATE orders SET status_id = ? WHERE id = ?";
 
@@ -37,7 +46,7 @@ public class OrdersDaoImpl implements OrdersDao {
 
     private static final String FIND_PREPARATIONS_IN_ORDERS = "SELECT  preparations.id, title, price, amount, description, image, active, purchases.quantity , categories.type, conditions.conditions_status  FROM preparations  JOIN categories ON preparations.categories_id = categories.id JOIN purchases ON purchases.preparations_id = preparations.id AND orders_id = ?";
 
-    private  static  final String FIND_ALL_ORDERS ="SELECT orders.id, created, amount, dose, cost orders.status_id, orders.users_id FROM orders JOIN users ON orders.id = users_id JOIN pusrchases ON orders_id =purchases.id JOIN orders_status ON orders.status_id= orders_status.id ";
+
     @Override
 
     public List<Orders> findAll() throws DaoException {

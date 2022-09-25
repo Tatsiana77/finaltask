@@ -22,11 +22,13 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger();
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static final String FIND_USER_BY_ID = "SELECT  user.id, name, surname, login + " +
+    private static final String FIND_ALL_USERS = "SELECT  users.id, name, surname, login + " +
             ", password, email, phone, role, status FROM users" +
             " JOIN roles ON roles_id=roles.id" +
-            " JOIN status ON status_id=status.id" +
-            " WHERE users.id=?";
+            " JOIN status ON status_id=status.id";
+
+    private static final String FIND_USER_BY_ID = FIND_ALL_USERS + " WHERE users.id=?";
+
     private static final String FIND_USER_BY_LOGIN = "SELECT  id FROM users WHERE login = ?";
 
     private static final String FIND_USER_BY_EMAIL = "SELECT id FROM users WHERE email = ?";
@@ -40,10 +42,7 @@ public class UserDaoImpl implements UserDao {
             "JOIN roles ON roles_id = roles.id" +
             "JOIN status ON status_id = status.id" +
             "WHERE login = ? AND password = ? ";
-    private static final String FIND_ALL_USERS = "SELECT  users.id, name, surname, login + " +
-            ", password, email, phone, role, status FROM users" +
-            " JOIN roles ON roles_id=roles.id" +
-            " JOIN status ON status_id=status.id";
+
     private static final String FIND_USER_STATUS_BY_ID = "SELECT status FROM users " +
             "JOIN status ON status.id =status_id WHERE users.id=?";
 

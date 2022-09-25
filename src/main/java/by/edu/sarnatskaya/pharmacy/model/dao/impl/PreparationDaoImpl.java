@@ -105,7 +105,8 @@ public class PreparationDaoImpl implements PreparationDao {
 
     @Override
     public List<Preparation> findPreparationByCondition(Preparation.Condition condition) throws DaoException {
-        try (Connection connection = connectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(FIND_PREPARATION_BY_CONDITION)) {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_PREPARATION_BY_CONDITION)) {
             statement.setString(1, condition.toString());
             ResultSet resultSet = statement.executeQuery();
             List<Preparation> preparations = new ArrayList<>();
@@ -123,7 +124,8 @@ public class PreparationDaoImpl implements PreparationDao {
 
     @Override
     public List<Category> findAllCategories() throws DaoException{
-        try (Connection connection = connectionPool.getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(FIND_ALL_CATEGORIES);
             List<Category> categories = new ArrayList<>();
             if (resultSet.next()) {
